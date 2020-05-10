@@ -25,19 +25,19 @@
             <div class="col-md-4">
                 <div class="deposit status">    
                     <h5>Deposit</h5>
-                    <h2>$0.00</h2>
+                    <h2>$ <span id="currentDeposit">0</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="withdraw status">
                     <h5>Withdraw</h5>
-                    <h2>$0.00</h2>
+                    <h2>$ <span id="currentWithdraw">0</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="balance status">
                     <h5>Balance</h5>
-                    <h2>$0.00</h2>
+                    <h2>$ <span id="currentBalance">1250</span></h2>
                 </div>
             </div>
         </div>
@@ -53,9 +53,9 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Withdraw</h4>
-                    <input type="text" name="" id="" class="form-control" placeholder="$ amount you want to withdraw">
+                    <input type="text" name="" id="withdrawAmount" class="form-control" placeholder="$ amount you want to withdraw">
                     <br>
-                    <button class="btn btn-success">Withdraw</button>
+                    <button class="btn btn-success" id="addWithdraw">Withdraw</button>
                 </div>
             </div>
         </div>
@@ -71,7 +71,28 @@
         const addDeposit = document.getElementById("addDeposit");
         addDeposit.addEventListener("click", function () {
             const depositAmount = parseFloat(document.getElementById("depositAmount").value);
+            plusSpanText('currentDeposit', depositAmount);
+            plusSpanText('currentBalance', depositAmount);
+            
+            
+            document.getElementById("depositAmount").value = "";
         })
+        const addWithdraw = document.getElementById("addWithdraw");
+        addWithdraw.addEventListener("click", function(){
+            const withdrawAmount = parseFloat(document.getElementById("withdrawAmount").value);
+            plusSpanText('currentWithdraw', withdrawAmount);
+            minusSpanText('currentBalance', withdrawAmount);
+        })
+        function plusSpanText(id, inputAmount) {
+            const currentAmount = parseFloat(document.getElementById(id).innerText);
+            const totalAmount = inputAmount + currentAmount;
+            document.getElementById(id).innerText = totalAmount;
+        }
+        function minusSpanText(id, inputAmount) {
+            const currentAmount = parseFloat(document.getElementById(id).innerText);
+            const totalAmount = currentAmount - inputAmount;
+            document.getElementById(id).innerText = totalAmount;
+        }
     </script>
     
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
