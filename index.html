@@ -61,6 +61,8 @@
         </div>
     </div>
     <script>
+
+        // Login button event handler
         const loginBtn = document.getElementById("login");
         loginBtn.addEventListener("click", function (){
             const loginArea = document.getElementById("login-area");
@@ -68,21 +70,32 @@
             const transactionArea = document.getElementById("transaction-area");
             transactionArea.style.display = "block";
         });
+
+        // Deposit button event handler
         const addDeposit = document.getElementById("addDeposit");
         addDeposit.addEventListener("click", function () {
-            const depositAmount = parseFloat(document.getElementById("depositAmount").value);
+            const depositAmount = getInput("depositAmount");
             plusSpanText('currentDeposit', depositAmount);
             plusSpanText('currentBalance', depositAmount);
             
             
             document.getElementById("depositAmount").value = "";
         })
+
+        // Withdraw button event handler
         const addWithdraw = document.getElementById("addWithdraw");
         addWithdraw.addEventListener("click", function(){
-            const withdrawAmount = parseFloat(document.getElementById("withdrawAmount").value);
+            const withdrawAmount = getInput("withdrawAmount");
             plusSpanText('currentWithdraw', withdrawAmount);
             minusSpanText('currentBalance', withdrawAmount);
         })
+
+        function getInput(id) {
+            const amount = parseFloat(document.getElementById(id).value);
+            return amount;
+        }
+
+
         function plusSpanText(id, inputAmount) {
             const currentAmount = parseFloat(document.getElementById(id).innerText);
             const totalAmount = inputAmount + currentAmount;
